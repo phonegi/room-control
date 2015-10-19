@@ -10,7 +10,7 @@ namespace RoomControl {
     [XmlRoot(Namespace = "", IsNullable = false)]
     class DeviceLoader {
         [XmlElement("device")]
-
+        public List<Device> devices { get; set; }
     }
     
 }

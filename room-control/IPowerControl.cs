@@ -5,9 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RoomControl {
-    interface IPowerControl {
-        public void PowerOn();
-        public void PowerOff();
-        
+    public enum PowerStatus {
+        OFF,
+        ON,
+        COOLING,
+        WARMUP,
+        UNKNOWN
+    }
+
+    public interface IPowerControl {
+        void PowerOn();
+        void PowerOff();
+    }
+
+    public interface IPowerStatus {
+        PowerStatus GetPowerStatus();
     }
 }

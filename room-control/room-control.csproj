@@ -47,13 +47,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Device.cs" />
+    <Compile Include="DeviceCreator.cs" />
     <Compile Include="DeviceLoader.cs" />
+    <Compile Include="DeviceMonitor.cs" />
+    <Compile Include="DevicePC.cs" />
+    <Compile Include="DeviceProjector.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="IInputControl.cs" />
     <Compile Include="IPowerControl.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
