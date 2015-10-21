@@ -23,5 +23,6 @@ namespace RoomControl
             DeviceList devices = (DeviceList)serializer.Deserialize(reader);
             reader.Close();
         }
+
     }
 }
