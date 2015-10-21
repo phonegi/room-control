@@ -7,10 +7,12 @@ using System.Xml.Serialization;
 
 namespace RoomControl {
 
-    [XmlRoot(Namespace = "", IsNullable = false)]
-    class DeviceLoader {
+    [XmlRoot("DeviceList", Namespace = "", IsNullable = false)]
+    public class DeviceList {
         [XmlElement("device")]
-        public List<Device> devices { get; set; }
+        public List<DeviceCreator> devices { get; set; }
     }
+
+    
     
 }

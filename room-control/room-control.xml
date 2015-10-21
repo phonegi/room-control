@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<devices xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<DeviceList>
   <device>
     <name>pc-north-1</name>
     <type>pc</type>
@@ -168,4 +168,4 @@
     <ip>10.7.19.133</ip>
     <mac>20-C6-EB-2A-B0-0C</mac>
   </device>
-</devices>
+</DeviceList>

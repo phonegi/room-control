@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace RoomControl {
     class DevicePC : Device, IPowerControl, IPowerStatus {
 
-        public DevicePC(string name, DeviceType type, IPAddress ip, PhysicalAddress mac) : base(name, type, ip, mac) { }
+        public DevicePC(string name, string type, string ip, string mac) : base(name, type, ip, mac) { }
 
         PowerStatus IPowerStatus.GetPowerStatus() {
             throw new NotImplementedException();

@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="Device.cs" />
     <Compile Include="DeviceCreator.cs" />
-    <Compile Include="DeviceLoader.cs" />
+    <Compile Include="DeviceList.cs" />
     <Compile Include="DeviceMonitor.cs" />
     <Compile Include="DevicePC.cs" />
     <Compile Include="DeviceProjector.cs" />

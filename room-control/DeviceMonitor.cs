@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace RoomControl {
     class DeviceMonitor : Device, IPowerControl, IPowerStatus, IInputControl, IInputStatus {
 
-        public DeviceMonitor(string name, DeviceType type, IPAddress ip, PhysicalAddress mac) : base(name, type, ip, mac) { }
+        public DeviceMonitor(string name, string type, string ip, string mac) : base(name, type, ip, mac) { }
 
         InputType IInputStatus.GetInputStatus() {
             throw new NotImplementedException();
