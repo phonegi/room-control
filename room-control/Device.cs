@@ -6,32 +6,56 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.Net;
 using System.Net.NetworkInformation;
+using rv;
 
 namespace RoomControl
 {
     public enum DeviceType {
-        PC,
         MONITOR,
+        PC,
         PROJECTOR
     }
 
-    public class Device {
-        private string _name;
-        private DeviceType _type;
-        private IPAddress _ip;
-        private PhysicalAddress _mac;
+    public abstract class Device {
+        protected const string PASSWORD = "4n4tom4ge#";
 
+        private string _name;
+        public string name {
+            get { return _name; }
+            set { _name = value; }
+        }
         public string Name { get { return _name; } }
-        public DeviceType Type { get { return _type; } }
+
+        private IPAddress _ip;
+        public string ip {
+            get { return _ip.ToString(); }
+            set {
+                try {
+                    _ip = IPAddress.Parse(value);
+                }
+                catch {
+                    throw new Exception("Invalid IP Address: " + value);
+                }
+            }
+        }
         public IPAddress IP { get { return _ip; } }
+
+        private PhysicalAddress _mac;
+        public string mac {
+            get { return _mac.ToString(); }
+            set {
+                try {
+                    _mac = PhysicalAddress.Parse(value);
+                }
+                catch {
+                    throw new Exception("Invalid MAC address: " + value);
+                }
+            }
+        }
         public PhysicalAddress MAC { get { return _mac; } }
 
-        public Device(string name, string type, string ip, string mac) {
-            _name = name;
-            _type = (DeviceType) Enum.Parse(typeof(DeviceType), type, true);
-            _ip = IPAddress.Parse(ip);
-            _mac = PhysicalAddress.Parse(mac);
-        }
+        public Device() { }
+
     }
     
 

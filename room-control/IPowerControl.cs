@@ -3,22 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using rv;
 
 namespace RoomControl {
-    public enum PowerStatus {
-        OFF,
-        ON,
-        COOLING,
-        WARMUP,
-        UNKNOWN
-    }
-
-    public interface IPowerControl {
+    interface IPowerControl {
         void PowerOn();
         void PowerOff();
-    }
-
-    public interface IPowerStatus {
-        PowerStatus GetPowerStatus();
+        PowerCommand.PowerStatus GetPowerStatus();
     }
 }

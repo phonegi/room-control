@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "room-control", "room-contro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PJLink", "..\..\pjlink-sharp\PJLink\PJLink.csproj", "{7C7E83DB-47B5-476D-9F0D-151F01051E07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wmi", "..\..\..\..\Syncplicity Folders\VS 2010 Projects\Network\shutdown-host\Wmi.csproj", "{222EE768-35DE-4F3D-86C8-9489DF7B8BFB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wmi", "..\..\network\shutdown-host\Wmi.csproj", "{222EE768-35DE-4F3D-86C8-9489DF7B8BFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WakeOnLan", "..\..\..\..\Syncplicity Folders\VS 2010 Projects\Network\wol\WakeOnLan\WakeOnLan.csproj", "{E24242FE-116E-455C-93D1-D7ED154FAE3C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WakeOnLan", "..\..\network\wol\WakeOnLan\WakeOnLan.csproj", "{E24242FE-116E-455C-93D1-D7ED154FAE3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

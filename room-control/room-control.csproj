@@ -47,11 +47,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Device.cs" />
-    <Compile Include="DeviceCreator.cs" />
     <Compile Include="DeviceList.cs" />
-    <Compile Include="DeviceMonitor.cs" />
-    <Compile Include="DevicePC.cs" />
-    <Compile Include="DeviceProjector.cs" />
+    <Compile Include="Monitor.cs" />
+    <Compile Include="PC.cs" />
+    <Compile Include="Projector.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +74,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Properties\DataSources\PC.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -89,9 +89,22 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="room-control.xml">
-      <SubType>Designer</SubType>
-    </Content>
+    <None Include="images\25 x 25 circle.png" />
+    <Content Include="room-control.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\network\shutdown-host\Wmi.csproj">
+      <Project>{222ee768-35de-4f3d-86c8-9489df7b8bfb}</Project>
+      <Name>Wmi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\network\wol\WakeOnLan\WakeOnLan.csproj">
+      <Project>{e24242fe-116e-455c-93d1-d7ed154fae3c}</Project>
+      <Name>WakeOnLan</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\pjlink-sharp\PJLink\PJLink.csproj">
+      <Project>{7c7e83db-47b5-476d-9f0d-151f01051e07}</Project>
+      <Name>PJLink</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
