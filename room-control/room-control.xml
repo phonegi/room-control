@@ -147,6 +147,15 @@
   </pcs>
 
   <projectors>
-  
+    <projector>
+      <name>projector-north</name>
+      <ip>10.7.19.113</ip>
+      <mac>B0-83-FE-AA-B2-4C</mac>
+    </projector>
+    <projector>
+      <name>projector-west</name>
+      <ip>10.7.19.113</ip>
+      <mac>B0-83-FE-AA-B2-4C</mac>
+    </projector>
   </projectors>
 </devices>

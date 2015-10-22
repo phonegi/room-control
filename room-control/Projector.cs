@@ -10,9 +10,10 @@ using rv;
 namespace RoomControl {
     public class Projector : Device, IPowerControl, IInputControl {
 
-        public const DeviceType TYPE = DeviceType.PROJECTOR;
+        public const DeviceType Type = DeviceType.PROJECTOR;
 
         private PJLinkConnection _connection;
+        private PowerCommand.PowerStatus _powerStatus = PowerCommand.PowerStatus.UNKNOWN;
 
         public Projector() { }
 
@@ -20,26 +21,37 @@ namespace RoomControl {
             _connection = new PJLinkConnection(IP.ToString(), PASSWORD);
         }
 
-        PowerCommand.PowerStatus IPowerControl.GetPowerStatus() {
-            return _connection.powerQuery();
+        public PowerCommand.PowerStatus GetPowerStatus() {
+            //_powerStatus = _connection.powerQuery();
+            return _powerStatus;
         }
 
-        void IPowerControl.PowerOff() {
-            _connection.turnOff();
+        public void PowerOff() {
+            if (_connection.turnOff()) {
+                _powerStatus = PowerCommand.PowerStatus.OFF;
+            }
+            else {
+                _powerStatus = PowerCommand.PowerStatus.UNKNOWN;
+            }
         }
 
-        void IPowerControl.PowerOn() {
-            _connection.turnOff();
+        public void PowerOn() {
+            if (_connection.turnOn()) {
+                _powerStatus = PowerCommand.PowerStatus.ON;
+            }
+            else {
+                _powerStatus = PowerCommand.PowerStatus.UNKNOWN;
+            }
         }
 
-        void IInputControl.SetInput(InputCommand.InputType inputType, int port) {
+        public void SetInput(InputCommand.InputType inputType, int port) {
             InputCommand inputCommand = new InputCommand(inputType, port);
             _connection.sendCommand(inputCommand);
         }
 
-        void IInputControl.GetInputStatus(out InputCommand.InputType type, out int port) {
+        public void GetInputStatus(out InputCommand.InputType type, out int port) {
             InputCommand inputCommand = new InputCommand();
-            _connection.sendCommand(inputCommand);
+            //_connection.sendCommand(inputCommand);
             type = inputCommand.Input;
             port = inputCommand.Port;
         }

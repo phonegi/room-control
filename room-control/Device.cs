@@ -16,7 +16,7 @@ namespace RoomControl
         PROJECTOR
     }
 
-    public abstract class Device {
+    public abstract class Device : IEquatable<Device> {
         protected const string PASSWORD = "4n4tom4ge#";
 
         private string _name;
@@ -56,6 +56,10 @@ namespace RoomControl
 
         public Device() { }
 
+        public bool Equals(Device other) {
+            if (other == null) { return false; }
+            return Name.Equals(other.Name);
+        }
     }
     
 

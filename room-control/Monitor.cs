@@ -10,9 +10,13 @@ using rv;
 namespace RoomControl {
     public class Monitor : Device, IPowerControl, IInputControl {
 
-        public const DeviceType TYPE = DeviceType.MONITOR;
+        public static int INPUT_BROADCAST = 1;
+        public static int INPUT_PC = 2;
+
+        public const DeviceType Type = DeviceType.MONITOR;
 
         private PJLinkConnection _connection;
+        private PowerCommand.PowerStatus _powerStatus = PowerCommand.PowerStatus.UNKNOWN;
 
         public Monitor() { }
 
@@ -20,28 +24,40 @@ namespace RoomControl {
             _connection = new PJLinkConnection(IP.ToString(), PASSWORD);
         }
 
-        PowerCommand.PowerStatus IPowerControl.GetPowerStatus() {
-            return _connection.powerQuery();
-        }
-        
-        void IPowerControl.PowerOff() {
-            _connection.turnOff();
+        public PowerCommand.PowerStatus GetPowerStatus() {
+            //_powerStatus = _connection.powerQuery();
+            return _powerStatus;
         }
 
-        void IPowerControl.PowerOn() {
-            _connection.turnOff();
+        public void PowerOff() {
+            if (_connection.turnOff()) {
+                _powerStatus = PowerCommand.PowerStatus.OFF;
+            }
+            else {
+                _powerStatus = PowerCommand.PowerStatus.UNKNOWN;
+            }
         }
 
-        void IInputControl.SetInput(InputCommand.InputType inputType, int port) {
+        public void PowerOn() {
+            if (_connection.turnOn()) {
+                _powerStatus = PowerCommand.PowerStatus.ON;
+            }
+            else {
+                _powerStatus = PowerCommand.PowerStatus.UNKNOWN;
+            }
+        }
+
+        public void SetInput(InputCommand.InputType inputType, int port) {
             InputCommand inputCommand = new InputCommand(inputType, port);
             _connection.sendCommand(inputCommand);
         }
 
-        void IInputControl.GetInputStatus(out InputCommand.InputType type, out int port) {
+        public void GetInputStatus(out InputCommand.InputType type, out int port) {
             InputCommand inputCommand = new InputCommand();
-            _connection.sendCommand(inputCommand);
+            //_connection.sendCommand(inputCommand);
             type = inputCommand.Input;
             port = inputCommand.Port;
         }
+
     }
 }

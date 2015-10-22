@@ -10,20 +10,22 @@ using rv;
 namespace RoomControl {
     public class PC : Device, IPowerControl {
 
-        public const DeviceType TYPE = DeviceType.PC;
+        public const DeviceType Type = DeviceType.PC;
+
+        private PowerCommand.PowerStatus _powerStatus = PowerCommand.PowerStatus.UNKNOWN;
 
         public PC() { }
 
-        PowerCommand.PowerStatus IPowerControl.GetPowerStatus() {
-            return PowerCommand.PowerStatus.UNKNOWN;
+        public PowerCommand.PowerStatus GetPowerStatus() {
+            return _powerStatus;
         }
 
-        void IPowerControl.PowerOff() {
-            Wmi.Util.ShutdownHost(IP);
+        public void PowerOff() {
+            _powerStatus = Wmi.Util.ShutdownHost(IP) == Wmi.Util.ShutdownResult.SUCCESS ? PowerCommand.PowerStatus.OFF : PowerCommand.PowerStatus.UNKNOWN;
         }
 
-        void IPowerControl.PowerOn() {
-            Network.WakeOnLan.WakeUp(MAC);
+        public void PowerOn() {
+            _powerStatus = Network.WakeOnLan.WakeUp(MAC) ? PowerCommand.PowerStatus.ON : PowerCommand.PowerStatus.UNKNOWN;
         }
     }
 }

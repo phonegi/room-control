@@ -90,6 +90,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="images\25 x 25 circle.png" />
+    <None Include="images\question-mark-full-size.png" />
+    <None Include="images\question-mark-100x100.png" />
+    <None Include="images\question-mark-25x25.png" />
+    <None Include="images\question-mark-22x22.png" />
+    <None Include="images\question-mark-20x20.png" />
+    <None Include="images\antenna-22x22.png" />
+    <None Include="images\dot-green-22x22.png" />
+    <None Include="images\dot-red-22x22.png" />
+    <None Include="images\laptop-22x22.png" />
+    <None Include="images\power-button-off-22x22.png" />
+    <None Include="images\power-button-on-22x22.png" />
+    <None Include="images\cool-22x22.png" />
+    <None Include="images\warm-22x22.png" />
+    <None Include="images\power-off.png" />
+    <None Include="images\power-on.png" />
+    <None Include="images\broadcast-22x22.png" />
     <Content Include="room-control.xml" />
   </ItemGroup>
   <ItemGroup>
