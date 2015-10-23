@@ -1,0 +1,29 @@
+user initiates command
+change status to ?
+call device.asyn_command_method(form.status_changed_callback, expected_device_status)
+
+form.status_changed_callback(device_name, status)
+	update device status icon
+
+device.async_command_method(form.status_changed_callback, expected_device_status)
+	do the following in a new thread:
+	command_status = call command
+	if (command_status != success)
+		new_status = command.query
+		if new_status != FAILURE
+			form.status_changed_callback(device.Name, status)
+		return
+		
+	end_loop_time = now + maximum_loop_time
+	while now < end_loop_time
+		next_loop_time = now + minimum_time_between_loops
+		new_status = command.query
+		if new_status = expected_device_status
+			form.status_changed_callback(device.Name, new_status)
+			current_status = new_status
+			return
+		if new_status != current_status
+			form.status_changed_callback(device.Name, new_status)
+			current_status = new_status
+		if next_loop_time > now
+			wait (next_loop_time - now)
