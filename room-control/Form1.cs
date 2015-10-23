@@ -23,6 +23,7 @@ namespace RoomControl
         {
             InitializeComponent();
             LoadDevices();
+
         }
 
         private void LoadDevices() {
@@ -41,6 +42,7 @@ namespace RoomControl
                 monitor.InitPJLinkConnection();
                 dgvMonitor.Rows.Add(new object[] { monitor.Name, GetPowerStatusImage(monitor), GetInputStatusImage(monitor) });
             }
+
             _projectors = deviceList.projectorList.projectors;
             foreach (Projector projector in _projectors) {
                 projector.InitPJLinkConnection();
@@ -79,7 +81,7 @@ namespace RoomControl
         }
 
         private void cmdPcOn_Click(object sender, EventArgs e) {
-            if (dgvPC.SelectedRows.Count == 0) {
+            if (dgvPC.SelectedCells.Count == 0) {
                 DialogResult result = MessageBox.Show("Do you want to turn on all PCs?", "Power ON", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes) {
                     foreach(PC pc in _pcs) {
@@ -89,15 +91,15 @@ namespace RoomControl
             }
             else {
                 PC pc;
-                foreach (DataGridViewRow row in dgvPC.SelectedRows) {
-                    pc = _pcs.Find(x => x.Name.Equals(row.Cells["Name"].ToString()));
+                foreach (DataGridViewCell cell in dgvPC.SelectedCells) {
+                    pc = _pcs.Find(x => x.Name.Equals(cell.Value.ToString()));
                     pc.PowerOn();
                 }
             }
         }
 
         private void cmdPcOff_Click(object sender, EventArgs e) {
-            if (dgvPC.SelectedRows.Count == 0) {
+            if (dgvPC.SelectedCells.Count == 0) {
 
                 DialogResult result = MessageBox.Show("Are you sure you want to turn off ALL PCs?", "Power OFF", MessageBoxButtons.YesNo);
                 if (result != DialogResult.Yes) { return; }
@@ -112,15 +114,15 @@ namespace RoomControl
             }
             else {
                 PC pc;
-                foreach (DataGridViewRow row in dgvPC.SelectedRows) {
-                    pc = _pcs.Find(x => x.Name.Equals(row.Cells["Name"].ToString()));
+                foreach (DataGridViewCell cell in dgvPC.SelectedCells) {
+                    pc = _pcs.Find(x => x.Name.Equals(cell.Value.ToString()));
                     pc.PowerOff();
                 }
             }
         }
 
         private void cmdMonitorOn_Click(object sender, EventArgs e) {
-            if (dgvMonitor.SelectedRows.Count == 0) {
+            if (dgvMonitor.SelectedCells.Count == 0) {
                 DialogResult result = MessageBox.Show("Do you want to turn on all monitors?", "Power ON", MessageBoxButtons.YesNo);
                 if (result != DialogResult.Yes) { return; }
 
@@ -130,15 +132,15 @@ namespace RoomControl
             }
             else {
                 Monitor monitor;
-                foreach (DataGridViewRow row in dgvMonitor.SelectedRows) {
-                    monitor = _monitors.Find(x => x.Name.Equals(row.Cells["Name"]));
+                foreach (DataGridViewCell cell in dgvMonitor.SelectedCells) {
+                    monitor = _monitors.Find(x => x.Name.Equals(cell.Value));
                     monitor.PowerOn();
                 }
             }
         }
 
         private void cmdMonitorOff_Click(object sender, EventArgs e) {
-            if (dgvMonitor.SelectedRows.Count == 0) {
+            if (dgvMonitor.SelectedCells.Count == 0) {
                 DialogResult result = MessageBox.Show("Do you want to turn off all monitors?", "Power OFF", MessageBoxButtons.YesNo);
                 if (result != DialogResult.Yes) { return; }
 
@@ -148,15 +150,15 @@ namespace RoomControl
             }
             else {
                 Monitor monitor;
-                foreach (DataGridViewRow row in dgvMonitor.SelectedRows) {
-                    monitor = _monitors.Find(x => x.Name.Equals(row.Cells["Name"]));
+                foreach (DataGridViewCell cell in dgvMonitor.SelectedCells) {
+                    monitor = _monitors.Find(x => x.Name.Equals(cell.Value));
                     monitor.PowerOff();
                 }
             }
         }
 
         private void cmdMonitorInputBroadcast_Click(object sender, EventArgs e) {
-            if (dgvMonitor.SelectedRows.Count == 0) {
+            if (dgvMonitor.SelectedCells.Count == 0) {
                 DialogResult result = MessageBox.Show("Do you want to switch the input to the broadcast signal for all monitors?", 
                                                       "Set input to broadcast", MessageBoxButtons.YesNo);
                 if (result != DialogResult.Yes) { return; }
@@ -167,15 +169,15 @@ namespace RoomControl
             }
             else {
                 Monitor monitor;
-                foreach(DataGridViewRow row in dgvMonitor.SelectedRows) {
-                    monitor = _monitors.Find(x => x.Name.Equals(row.Cells["Name"]));
+                foreach(DataGridViewCell cell in dgvMonitor.SelectedCells) {
+                    monitor = _monitors.Find(x => x.Name.Equals(cell.Value));
                     monitor.SetInput(InputCommand.InputType.DIGITAL, Monitor.INPUT_BROADCAST);
                 }
             }
         }
 
         private void cmdMonitorInputPc_Click(object sender, EventArgs e) {
-            if (dgvMonitor.SelectedRows.Count == 0) {
+            if (dgvMonitor.SelectedCells.Count == 0) {
                 DialogResult result = MessageBox.Show("Do you want to switch the input to the local PC for all monitors?",
                                                       "Set input to broadcast", MessageBoxButtons.YesNo);
                 if (result != DialogResult.Yes) { return; }
@@ -186,11 +188,56 @@ namespace RoomControl
             }
             else {
                 Monitor monitor;
-                foreach (DataGridViewRow row in dgvMonitor.SelectedRows) {
-                    monitor = _monitors.Find(x => x.Name.Equals(row.Cells["Name"]));
+                foreach (DataGridViewCell cell in dgvMonitor.SelectedCells) {
+                    monitor = _monitors.Find(x => x.Name.Equals(cell.Value));
                     monitor.SetInput(InputCommand.InputType.DIGITAL, Monitor.INPUT_PC);
                 }
             }
+        }
+
+        private void cmdProjectorOn_Click(object sender, EventArgs e) {
+            if (dgvProjector.SelectedCells.Count == 0) {
+                DialogResult result = MessageBox.Show("Do you want to turn on all projectors?",
+                                                      "Turn on projectors", MessageBoxButtons.YesNo);
+                if (result != DialogResult.Yes) { return; }
+
+                foreach (Projector projector in _projectors) {
+                    projector.PowerOn();
+                }
+            }
+            else {
+                Projector projector;
+                foreach (DataGridViewCell cell in dgvProjector.SelectedCells) {
+                    projector = _projectors.Find(x => x.Name.Equals(cell.Value));
+                    projector.PowerOn();
+                }
+            }
+        }
+
+        private void cmdProjectorOff_Click(object sender, EventArgs e) {
+            if (dgvProjector.SelectedCells.Count == 0) {
+                DialogResult result = MessageBox.Show("Do you want to turn off all projectors?",
+                                                      "Turn off projectors", MessageBoxButtons.YesNo);
+                if (result != DialogResult.Yes) { return; }
+
+                foreach (Projector projector in _projectors) {
+                    projector.PowerOff();
+                }
+            }
+            else {
+                Projector projector;
+                foreach (DataGridViewCell cell in dgvProjector.SelectedCells) {
+                    projector = _projectors.Find(x => x.Name.Equals(cell.Value));
+                    projector.PowerOff();
+                }
+            }
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e) {
+            dgvPC.ClearSelection();
+            dgvMonitor.ClearSelection();
+            dgvProjector.ClearSelection();
         }
     }
 }
