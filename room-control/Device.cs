@@ -17,7 +17,7 @@ namespace RoomControl
     }
 
     public abstract class Device : IEquatable<Device> {
-        protected const string PASSWORD = "4n4tom4ge#";
+        protected const string PASSWORD = "anatomage";
 
         private string _name;
         public string name {
