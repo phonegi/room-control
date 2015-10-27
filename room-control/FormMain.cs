@@ -85,7 +85,7 @@ namespace RoomControl
             if (type == InputCommand.InputType.DIGITAL) {
                 switch (port) {
                     case 1:
-                        return Properties.Resources.antenna_22x22;
+                        return Properties.Resources.broadcast_22x22;
                     case 2:
                         return Properties.Resources.laptop_22x22;
                 }
