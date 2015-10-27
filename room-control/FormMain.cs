@@ -13,13 +13,15 @@ using rv;
 
 namespace RoomControl
 {
-    public partial class Form1 : Form
+    public partial class FormMain : Form
     {
         private List<PC> _pcs;
         private List<Monitor> _monitors;
         private List<Projector> _projectors;
+        public delegate void UpdatePowerStatusImage_Delegate(Device device, PowerCommand.PowerStatus status);
+        public delegate void UpdateInputStatusImage_Delegate(Device device, InputCommand.InputType inputType, int port);
 
-        public Form1()
+        public FormMain()
         {
             InitializeComponent();
             LoadDevices();
@@ -34,24 +36,24 @@ namespace RoomControl
 
             _pcs = deviceList.pcList.pcs;
             foreach(PC pc in _pcs) {
-                dgvPC.Rows.Add( new object[] { pc.Name, GetPowerStatusImage(pc) } );
+                dgvPC.Rows.Add( new object[] { pc.Name, PowerCommand.PowerStatus.UNKNOWN } );
             }
 
             _monitors = deviceList.monitorList.monitors;
             foreach (Monitor monitor in _monitors) {
                 monitor.InitPJLinkConnection();
-                dgvMonitor.Rows.Add(new object[] { monitor.Name, GetPowerStatusImage(monitor), GetInputStatusImage(monitor) });
+                dgvMonitor.Rows.Add(new object[] { monitor.Name, PowerCommand.PowerStatus.UNKNOWN, InputCommand.InputType.UNKNOWN });
             }
 
             _projectors = deviceList.projectorList.projectors;
             foreach (Projector projector in _projectors) {
                 projector.InitPJLinkConnection();
-                dgvProjector.Rows.Add(new object[] { projector.Name, GetPowerStatusImage(projector), GetInputStatusImage(projector) });
+                dgvProjector.Rows.Add(new object[] { projector.Name, PowerCommand.PowerStatus.UNKNOWN, InputCommand.InputType.UNKNOWN });
             }
         }
 
-        private Bitmap GetPowerStatusImage(IPowerControl device) {
-            switch (device.GetPowerStatus()) {
+        private Bitmap GetPowerStatusImage(PowerCommand.PowerStatus status) {
+            switch (status) {
                 case PowerCommand.PowerStatus.ON:
                     return Properties.Resources.dot_green_22x22;
                 case PowerCommand.PowerStatus.OFF:
@@ -64,11 +66,22 @@ namespace RoomControl
             return Properties.Resources.question_mark_22x22;
         }
 
+        private void UpdatePowerStatusImage(Device device, PowerCommand.PowerStatus status) {
+            Bitmap image = GetPowerStatusImage(status);
+            DataGridViewRow row = GetDataGridViewRow(device.Type, device.Name);
+            if (row == null) { return; }
+            row.Cells[1].Value = image;
+        }
 
-        private Bitmap GetInputStatusImage(IInputControl device) {
-            InputCommand.InputType type;
-            int port;
-            device.GetInputStatus(out type, out port);
+
+        private void UpdateInputStatusImage(Device device, InputCommand.InputType type, int port) {
+            Bitmap image = GetInputStatusImage(type, port);
+            DataGridViewRow row = GetDataGridViewRow(device.Type, device.Name);
+            if (row == null) { return; }
+            row.Cells[2].Value = image;
+        }
+
+        private Bitmap GetInputStatusImage(InputCommand.InputType type, int port) {
             if (type == InputCommand.InputType.DIGITAL) {
                 switch (port) {
                     case 1:
@@ -78,6 +91,30 @@ namespace RoomControl
                 }
             }
             return Properties.Resources.question_mark_22x22;
+        }
+
+        private DataGridViewRow GetDataGridViewRow(DeviceType deviceType, string name) {
+            DataGridView dgv;
+            switch (deviceType) {
+                case DeviceType.MONITOR:
+                    dgv = dgvMonitor;
+                    break;
+                case DeviceType.PC:
+                    dgv = dgvPC;
+                    break;
+                case DeviceType.PROJECTOR:
+                    dgv = dgvProjector;
+                    break;
+                default:
+                    dgv = new DataGridView();
+                    break;
+            }
+            foreach (DataGridViewRow row in dgv.Rows) {
+                if (row.Cells[0].Value.Equals(name)) {
+                    return row;
+                }
+            }
+            return null;
         }
 
         private void cmdPcOn_Click(object sender, EventArgs e) {

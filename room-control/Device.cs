@@ -56,6 +56,13 @@ namespace RoomControl
 
         public Device() { }
 
+        protected DeviceType _type;
+        public DeviceType Type {
+            get {
+                return _type;
+            }
+        }
+
         public bool Equals(Device other) {
             if (other == null) { return false; }
             return Name.Equals(other.Name);

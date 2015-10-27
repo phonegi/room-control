@@ -1,6 +1,6 @@
 user initiates command
 change status to ?
-call device.asyn_command_method(form.status_changed_callback, expected_device_status)
+call device.asyn_command_method(form.status_changed_callback)
 
 form.status_changed_callback(device_name, status)
 	update device status icon

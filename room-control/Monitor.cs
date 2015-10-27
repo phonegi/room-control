@@ -12,13 +12,13 @@ namespace RoomControl {
 
         public static int INPUT_BROADCAST = 1;
         public static int INPUT_PC = 2;
-
-        public const DeviceType Type = DeviceType.MONITOR;
-
+        
         private PJLinkConnection _connection;
         private PowerCommand.PowerStatus _powerStatus = PowerCommand.PowerStatus.UNKNOWN;
 
-        public Monitor() { }
+        public Monitor() {
+            _type = DeviceType.MONITOR;
+        }
 
         public void InitPJLinkConnection() {
             _connection = new PJLinkConnection(IP.ToString(), PASSWORD);

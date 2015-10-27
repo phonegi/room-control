@@ -10,12 +10,12 @@ using rv;
 namespace RoomControl {
     public class Projector : Device, IPowerControl, IInputControl {
 
-        public const DeviceType Type = DeviceType.PROJECTOR;
-
         private PJLinkConnection _connection;
         private PowerCommand.PowerStatus _powerStatus = PowerCommand.PowerStatus.UNKNOWN;
 
-        public Projector() { }
+        public Projector() {
+            _type = DeviceType.PROJECTOR;
+        }
 
         public void InitPJLinkConnection() {
             _connection = new PJLinkConnection(IP.ToString(), PASSWORD);
