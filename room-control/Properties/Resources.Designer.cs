@@ -63,16 +63,6 @@ namespace RoomControl.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap antenna_22x22 {
-            get {
-                object obj = ResourceManager.GetObject("antenna_22x22", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap broadcast_22x22 {
             get {
                 object obj = ResourceManager.GetObject("broadcast_22x22", resourceCulture);
