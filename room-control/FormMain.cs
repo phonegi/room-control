@@ -36,85 +36,114 @@ namespace RoomControl
 
             _pcs = deviceList.pcList.pcs;
             foreach(PC pc in _pcs) {
-                dgvPC.Rows.Add( new object[] { pc.Name, PowerCommand.PowerStatus.UNKNOWN } );
+                dgvPC.Rows.Add( new object[] { pc.Name, Properties.Resources.hourglass } );
+                pc.PowerStatusChanged += PcPowerStatusChanged;
+                //pc.UpdatePowerStatus();
             }
 
             _monitors = deviceList.monitorList.monitors;
             foreach (Monitor monitor in _monitors) {
                 monitor.InitPJLinkConnection();
-                dgvMonitor.Rows.Add(new object[] { monitor.Name, PowerCommand.PowerStatus.UNKNOWN, InputCommand.InputType.UNKNOWN });
+                dgvMonitor.Rows.Add(new object[] { monitor.Name, Properties.Resources.hourglass, Properties.Resources.hourglass });
+                monitor.PowerStatusChanged += MonitorPowerStatusChanged;
+                monitor.InputStatusChanged += MonitorInputStatusChanged;
+                //if (monitor.Name == "monitor-south-3") {
+                    monitor.UpdatePowerStatus();
+                //}
             }
 
             _projectors = deviceList.projectorList.projectors;
             foreach (Projector projector in _projectors) {
                 projector.InitPJLinkConnection();
-                dgvProjector.Rows.Add(new object[] { projector.Name, PowerCommand.PowerStatus.UNKNOWN, InputCommand.InputType.UNKNOWN });
+                dgvProjector.Rows.Add(new object[] { projector.Name, Properties.Resources.hourglass, Properties.Resources.hourglass });
+                projector.PowerStatusChanged += ProjectorPowerStatusChanged;
+                //projector.UpdatePowerStatus();
             }
         }
 
         private Bitmap GetPowerStatusImage(PowerCommand.PowerStatus status) {
             switch (status) {
                 case PowerCommand.PowerStatus.ON:
-                    return Properties.Resources.dot_green_22x22;
+                    return Properties.Resources.dot_green;
                 case PowerCommand.PowerStatus.OFF:
-                    return Properties.Resources.dot_red_22x22;
+                    return Properties.Resources.dot_red;
                 case PowerCommand.PowerStatus.COOLING:
-                    return Properties.Resources.cool_22x22;
+                    return Properties.Resources.cool_down;
                 case PowerCommand.PowerStatus.WARMUP:
                     return Properties.Resources.warm_22x22;
             }
-            return Properties.Resources.question_mark_22x22;
-        }
-
-        private void UpdatePowerStatusImage(Device device, PowerCommand.PowerStatus status) {
-            Bitmap image = GetPowerStatusImage(status);
-            DataGridViewRow row = GetDataGridViewRow(device.Type, device.Name);
-            if (row == null) { return; }
-            row.Cells[1].Value = image;
-        }
-
-
-        private void UpdateInputStatusImage(Device device, InputCommand.InputType type, int port) {
-            Bitmap image = GetInputStatusImage(type, port);
-            DataGridViewRow row = GetDataGridViewRow(device.Type, device.Name);
-            if (row == null) { return; }
-            row.Cells[2].Value = image;
+            return Properties.Resources.question_mark;
         }
 
         private Bitmap GetInputStatusImage(InputCommand.InputType type, int port) {
             if (type == InputCommand.InputType.DIGITAL) {
                 switch (port) {
                     case 1:
-                        return Properties.Resources.broadcast_22x22;
+                        return Properties.Resources.broadcast;
                     case 2:
-                        return Properties.Resources.laptop_22x22;
+                        return Properties.Resources.laptop;
                 }
             }
-            return Properties.Resources.question_mark_22x22;
+            return Properties.Resources.question_mark;
         }
 
-        private DataGridViewRow GetDataGridViewRow(DeviceType deviceType, string name) {
-            DataGridView dgv;
-            switch (deviceType) {
-                case DeviceType.MONITOR:
-                    dgv = dgvMonitor;
-                    break;
-                case DeviceType.PC:
-                    dgv = dgvPC;
-                    break;
-                case DeviceType.PROJECTOR:
-                    dgv = dgvProjector;
-                    break;
-                default:
-                    dgv = new DataGridView();
-                    break;
-            }
-            foreach (DataGridViewRow row in dgv.Rows) {
-                if (row.Cells[0].Value.Equals(name)) {
-                    return row;
+        private void PcPowerStatusChanged(object sender, PowerStatusChangedEventArgs e) {
+            PC pc = sender as PC;
+            Bitmap image = GetPowerStatusImage(e.NewStatus);
+
+            foreach (DataGridViewRow row in dgvPC.Rows) {
+                if (row.Cells[0].Value.Equals(pc.Name)) {
+                    row.Cells[1].Value = image;
+                    return;
                 }
             }
-            return null;
+        }
+
+        private void MonitorPowerStatusChanged(object sender, PowerStatusChangedEventArgs e) {
+            Monitor monitor = sender as Monitor;
+            Bitmap image = GetPowerStatusImage(e.NewStatus);
+
+            foreach (DataGridViewRow row in dgvMonitor.Rows) {
+                if (row.Cells[0].Value.Equals(monitor.Name)) {
+                    row.Cells[1].Value = image;
+                    if (e.NewStatus == PowerCommand.PowerStatus.OFF) {
+                        row.Cells[2].Value = null;
+                    }
+                    else if (e.NewStatus == PowerCommand.PowerStatus.ON) {
+                        System.Threading.Thread thread = new System.Threading.Thread((System.Threading.ThreadStart)delegate {
+                            System.Threading.Thread.Sleep(10000);
+                            monitor.UpdateInputStatus();
+                        });
+                        thread.IsBackground = true;
+                        thread.Start();
+                    }
+                    return;
+                }
+            }
+        }
+
+        private void MonitorInputStatusChanged(object sender, InputStatusChangedEventArgs e) {
+            Monitor monitor = sender as Monitor;
+            Bitmap image = GetInputStatusImage(e.NewType, e.NewPort);
+
+            foreach (DataGridViewRow row in dgvMonitor.Rows) {
+                if (row.Cells[0].Value.Equals(monitor.Name)) {
+                    row.Cells[2].Value = image;
+                    return;
+                }
+            }
+        }
+
+        private void ProjectorPowerStatusChanged(object sender, PowerStatusChangedEventArgs e) {
+            Projector projector = sender as Projector;
+            Bitmap image = GetPowerStatusImage(e.NewStatus);
+
+            foreach (DataGridViewRow row in dgvProjector.Rows) {
+                if (row.Cells[0].Value.Equals(projector.Name)) {
+                    row.Cells[1].Value = image;
+                    return;
+                }
+            }
         }
 
         private void cmdPcOn_Click(object sender, EventArgs e) {

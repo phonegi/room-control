@@ -63,9 +63,9 @@ namespace RoomControl.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap broadcast_22x22 {
+        internal static System.Drawing.Bitmap broadcast {
             get {
-                object obj = ResourceManager.GetObject("broadcast_22x22", resourceCulture);
+                object obj = ResourceManager.GetObject("broadcast", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace RoomControl.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap cool_22x22 {
+        internal static System.Drawing.Bitmap cool_down {
             get {
-                object obj = ResourceManager.GetObject("cool_22x22", resourceCulture);
+                object obj = ResourceManager.GetObject("cool_down", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace RoomControl.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap dot_green_22x22 {
+        internal static System.Drawing.Bitmap dot_green {
             get {
-                object obj = ResourceManager.GetObject("dot_green_22x22", resourceCulture);
+                object obj = ResourceManager.GetObject("dot_green", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace RoomControl.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap dot_red_22x22 {
+        internal static System.Drawing.Bitmap dot_red {
             get {
-                object obj = ResourceManager.GetObject("dot_red_22x22", resourceCulture);
+                object obj = ResourceManager.GetObject("dot_red", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace RoomControl.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap laptop_22x22 {
+        internal static System.Drawing.Bitmap hourglass {
             get {
-                object obj = ResourceManager.GetObject("laptop_22x22", resourceCulture);
+                object obj = ResourceManager.GetObject("hourglass", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +113,9 @@ namespace RoomControl.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap power_button_off_22x22 {
+        internal static System.Drawing.Bitmap laptop {
             get {
-                object obj = ResourceManager.GetObject("power_button_off_22x22", resourceCulture);
+                object obj = ResourceManager.GetObject("laptop", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,9 +123,19 @@ namespace RoomControl.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap power_button_on_22x22 {
+        internal static System.Drawing.Bitmap power_button_off {
             get {
-                object obj = ResourceManager.GetObject("power_button_on_22x22", resourceCulture);
+                object obj = ResourceManager.GetObject("power_button_off", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap power_button_on {
+            get {
+                object obj = ResourceManager.GetObject("power_button_on", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,9 +163,19 @@ namespace RoomControl.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap question_mark_22x22 {
+        internal static System.Drawing.Bitmap question_mark {
             get {
-                object obj = ResourceManager.GetObject("question_mark_22x22", resourceCulture);
+                object obj = ResourceManager.GetObject("question_mark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap red_x {
+            get {
+                object obj = ResourceManager.GetObject("red_x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

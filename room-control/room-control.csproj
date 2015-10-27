@@ -107,6 +107,15 @@
     <None Include="images\power-off.png" />
     <None Include="images\power-on.png" />
     <None Include="images\broadcast-22x22.png" />
+    <None Include="images\red-x.png" />
+    <None Include="images\red-x-22x22.png" />
+    <None Include="images\hourglass-22x22.png" />
+    <None Include="images\dot-green-20x20.png" />
+    <None Include="images\dot-red-20x20.png" />
+    <None Include="images\red-x-20x20.png" />
+    <None Include="images\hourglass-20x20.png" />
+    <None Include="images\laptop-fucia-20x20.png" />
+    <None Include="images\broadcast-blue-22x22.png" />
     <Content Include="room-control.xml" />
   </ItemGroup>
   <ItemGroup>
