@@ -7,9 +7,10 @@ using rv;
 
 namespace RoomControl {
     public abstract class PoweredDevice : Device, IPowerControl {
-        public PowerCommand.PowerStatus PowerStatus { get; }
+        protected int _maximumLoopTimeSpan;     //in seconds
+        protected int _minimumLoopTimeSpan;        //in seconds
+        private PowerCommand.PowerStatus __powerStatus = PowerCommand.PowerStatus.UNKNOWN;
 
-        protected PowerCommand.PowerStatus __powerStatus;
         protected PowerCommand.PowerStatus _powerStatus {
             get { return __powerStatus; }
             set {
@@ -27,10 +28,38 @@ namespace RoomControl {
                 eventHandler(this, e);
             }
         }
+
+        // returns true if power status was subb
+        protected abstract bool GetPowerStatus(PowerCommand.PowerStatus expectedStatus);
+
+        #region IPowerControl Implementation
         public event EventHandler<PowerStatusChangedEventArgs> PowerStatusChanged;
 
-        public abstract void PowerOff();
+        public PowerCommand.PowerStatus PowerStatus { get { return __powerStatus; } }
+
         public abstract void PowerOn();
-        public abstract void UpdatePowerStatus(PowerCommand.PowerStatus expectedStatus = PowerCommand.PowerStatus.UNKNOWN);
+        public abstract void PowerOff();
+
+        public void UpdatePowerStatus(PowerCommand.PowerStatus expectedStatus = PowerCommand.PowerStatus.UNKNOWN) {
+
+            System.Threading.Thread thread = new System.Threading.Thread((System.Threading.ThreadStart)delegate {
+                DateTime startTime = DateTime.Now;
+                DateTime endTime = startTime.Add(new TimeSpan(0, 0, _maximumLoopTimeSpan));
+                DateTime nextLoopTime;
+
+                while (DateTime.Now < endTime) {
+                    nextLoopTime = DateTime.Now.Add(new TimeSpan(0, 0, _minimumLoopTimeSpan));
+                    if (GetPowerStatus(expectedStatus)) { return; }
+                    if (nextLoopTime > DateTime.Now) {
+                        System.Threading.Thread.Sleep((nextLoopTime - DateTime.Now).Milliseconds);
+                    }
+                }
+            });
+            thread.IsBackground = true;
+            thread.Start();
+        }
+        #endregion
+
+
     }
 }

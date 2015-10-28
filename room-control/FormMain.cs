@@ -18,8 +18,8 @@ namespace RoomControl
         private List<PC> _pcs;
         private List<Monitor> _monitors;
         private List<Projector> _projectors;
-        public delegate void UpdatePowerStatusImage_Delegate(OriginalDevice device, PowerCommand.PowerStatus status);
-        public delegate void UpdateInputStatusImage_Delegate(OriginalDevice device, InputCommand.InputType inputType, int port);
+        public delegate void UpdatePowerStatusImage_Delegate(Device device, PowerCommand.PowerStatus status);
+        public delegate void UpdateInputStatusImage_Delegate(Device device, InputCommand.InputType inputType, int port);
 
         public FormMain()
         {
@@ -47,9 +47,7 @@ namespace RoomControl
                 dgvMonitor.Rows.Add(new object[] { monitor.Name, Properties.Resources.hourglass, Properties.Resources.hourglass });
                 monitor.PowerStatusChanged += MonitorPowerStatusChanged;
                 monitor.InputStatusChanged += MonitorInputStatusChanged;
-                //if (monitor.Name == "monitor-south-3") {
-                    monitor.UpdatePowerStatus();
-                //}
+                monitor.UpdatePowerStatus();
             }
 
             _projectors = deviceList.projectorList.projectors;
@@ -57,7 +55,7 @@ namespace RoomControl
                 projector.InitPJLinkConnection();
                 dgvProjector.Rows.Add(new object[] { projector.Name, Properties.Resources.hourglass, Properties.Resources.hourglass });
                 projector.PowerStatusChanged += ProjectorPowerStatusChanged;
-                //projector.UpdatePowerStatus();
+                projector.UpdatePowerStatus();
             }
         }
 

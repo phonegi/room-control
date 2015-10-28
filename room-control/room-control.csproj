@@ -47,12 +47,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Device.cs" />
+    <Compile Include="Monitor.cs" />
     <Compile Include="OriginalDevice.cs" />
     <Compile Include="DeviceList.cs" />
-    <Compile Include="Monitor.cs" />
+    <Compile Include="OriginalMonitor.cs" />
+    <Compile Include="OriginalPC.cs" />
     <Compile Include="PC.cs" />
+    <Compile Include="PJLinkDevice.cs" />
     <Compile Include="PoweredDevice.cs" />
-    <Compile Include="Projector.cs" />
+    <Compile Include="OriginalProjector.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,6 +65,7 @@
     <Compile Include="IInputControl.cs" />
     <Compile Include="IPowerControl.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Projector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
