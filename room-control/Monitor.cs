@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using rv;
 
 namespace RoomControl {
-    public class Monitor : Device, IPowerControl, IInputControl {
+    public class Monitor : OriginalDevice, IPowerControl, IInputControl {
 
         public static int INPUT_BROADCAST = 1;
         public static int INPUT_PC = 2;
@@ -91,20 +91,20 @@ namespace RoomControl {
             thread.Start();
         }
 
-        public void UpdatePowerStatus() {
-            UpdatePowerStatus(PowerCommand.PowerStatus.UNKNOWN);
-        }
-
-        public void UpdatePowerStatus(PowerCommand.PowerStatus expectedStatus) {
+        public void UpdatePowerStatus(PowerCommand.PowerStatus expectedStatus = PowerCommand.PowerStatus.UNKNOWN) {
             System.Threading.Thread thread = new System.Threading.Thread((System.Threading.ThreadStart)delegate {
-                DateTime start = DateTime.Now;
-                DateTime end = start.Add(new TimeSpan(0, 0, 10));
+                DateTime startTime = DateTime.Now;
+                DateTime endTime = startTime.Add(new TimeSpan(0, 0, 15));
                 DateTime nextLoopTime;
                 PowerCommand cmd = new PowerCommand(PowerCommand.Power.QUERY);
                 Command.Response response;
 
-                while (DateTime.Now < end) {
-                    nextLoopTime = DateTime.Now.Add(new TimeSpan(0, 0, 3));
+                // Loop a maximum of every nextLoopTime seconds until:
+                // 1. Current status = expectedStatus != UNKNOWN
+                // 2. Current status != UNKNOWN && expectedStatus = UNKNOWN
+                // 3. endTime is reached
+                while (DateTime.Now < endTime) {
+                    nextLoopTime = DateTime.Now.Add(new TimeSpan(0, 0, 1));
                     response = _connection.sendCommand(cmd);
                     if (response == Command.Response.SUCCESS) {
                         _powerStatus = cmd.Status;
@@ -120,6 +120,7 @@ namespace RoomControl {
                         System.Threading.Thread.Sleep((nextLoopTime - DateTime.Now).Milliseconds);
                     }
                 }
+                _powerStatus = PowerCommand.PowerStatus.UNKNOWN;
             });
             thread.IsBackground = true;
             thread.Start();
@@ -139,23 +140,43 @@ namespace RoomControl {
         public void SetInput(InputCommand.InputType inputType, int port) {
             System.Threading.Thread thread = new System.Threading.Thread((System.Threading.ThreadStart)delegate {
                 InputCommand inputCommand = new InputCommand(inputType, port);
-                _connection.sendCommand(inputCommand);
-                System.Threading.Thread.Sleep(2000);
-                UpdateInputStatus();
+                Command.Response response = _connection.sendCommand(inputCommand);
+                if (response == Command.Response.SUCCESS) {
+                    UpdateInputStatus(inputType, port);
+                }
             });
             thread.IsBackground = true;
             thread.Start();
         }
 
-        public void UpdateInputStatus() {
+        public void UpdateInputStatus(InputCommand.InputType expectedType = InputCommand.InputType.UNKNOWN, int expectedPort = -1) {
             System.Threading.Thread thread = new System.Threading.Thread((System.Threading.ThreadStart)delegate {
-                InputCommand inputCommand = new InputCommand();
-                Command.Response response = _connection.sendCommand(inputCommand);
-                if (response == Command.Response.SUCCESS) {
-                    SetInputStatus(inputCommand.Input, inputCommand.Port);
-                }
-                else {
-                    SetInputStatus(InputCommand.InputType.UNKNOWN);
+                DateTime startTime = DateTime.Now;
+                DateTime endTime = startTime.Add(new TimeSpan(0, 0, 15));
+                DateTime nextLoopTime;
+                InputCommand cmd = new InputCommand();
+                Command.Response response;
+
+                // Loop a maximum of every nextLoopTime seconds until:
+                // 1. Current status = expectedStatus != UNKNOWN
+                // 2. Current status != UNKNOWN && expectedStatus = UNKNOWN
+                // 3. endTime is reached
+                while (DateTime.Now < endTime) {
+                    nextLoopTime = DateTime.Now.Add(new TimeSpan(0, 0, 1));
+                    response = _connection.sendCommand(cmd);
+                    if (response == Command.Response.SUCCESS) {
+                        SetInputStatus(cmd.Input, cmd.Port);
+                    }
+                    else {
+                        SetInputStatus(InputCommand.InputType.UNKNOWN);
+                    }
+                    if (expectedType != InputCommand.InputType.UNKNOWN) {
+                        if (_inputType == expectedType && _port == expectedPort) { return; }
+                    }
+                    else if (_inputType != InputCommand.InputType.UNKNOWN) { return; }
+                    if (nextLoopTime > DateTime.Now) {
+                        System.Threading.Thread.Sleep((nextLoopTime - DateTime.Now).Milliseconds);
+                    }
                 }
             });
             thread.IsBackground = true;

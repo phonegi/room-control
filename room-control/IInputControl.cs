@@ -28,7 +28,7 @@ namespace RoomControl {
 
     interface IInputControl {
         void SetInput(InputCommand.InputType inputType, int port);
-        void UpdateInputStatus();
+        void UpdateInputStatus(InputCommand.InputType expectedType = InputCommand.InputType.UNKNOWN, int expectedPort = -1);
         void GetInputStatus(out InputCommand.InputType type, out int port);
         event EventHandler<InputStatusChangedEventArgs> InputStatusChanged;
     }

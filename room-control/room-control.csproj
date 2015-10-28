@@ -47,9 +47,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Device.cs" />
+    <Compile Include="OriginalDevice.cs" />
     <Compile Include="DeviceList.cs" />
     <Compile Include="Monitor.cs" />
     <Compile Include="PC.cs" />
+    <Compile Include="PoweredDevice.cs" />
     <Compile Include="Projector.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>

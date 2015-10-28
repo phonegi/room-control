@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using rv;
 
 namespace RoomControl {
-    public class PC : Device, IPowerControl {
+    public class PC : OriginalDevice, IPowerControl {
         private PowerCommand.PowerStatus __powerStatus;
         private PowerCommand.PowerStatus _powerStatus {
             get { return __powerStatus; }

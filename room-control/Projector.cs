@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using rv;
 
 namespace RoomControl {
-    public class Projector : Device, IPowerControl {
+    public class Projector : OriginalDevice, IPowerControl {
 
 
         private PJLinkConnection _connection;
@@ -64,20 +64,20 @@ namespace RoomControl {
             thread.IsBackground = true;
         }
 
-        public void UpdatePowerStatus() {
-            UpdatePowerStatus(PowerCommand.PowerStatus.UNKNOWN);
-        }
-
-        public void UpdatePowerStatus(PowerCommand.PowerStatus expectedStatus) {
+        public void UpdatePowerStatus(PowerCommand.PowerStatus expectedStatus = PowerCommand.PowerStatus.UNKNOWN) {
             System.Threading.Thread thread = new System.Threading.Thread((System.Threading.ThreadStart)delegate {
-                DateTime start = DateTime.Now;
-                DateTime end = start.Add(new TimeSpan(0, 0, 10));
+                DateTime startTime = DateTime.Now;
+                DateTime endTime = startTime.Add(new TimeSpan(0, 0, 15));
                 DateTime nextLoopTime;
                 PowerCommand cmd = new PowerCommand(PowerCommand.Power.QUERY);
                 Command.Response response;
-
-                while (DateTime.Now < end) {
-                    nextLoopTime = DateTime.Now.Add(new TimeSpan(0, 0, 3));
+                
+                // Loop a maximum of every nextLoopTime seconds until:
+                // 1. Current status = expectedStatus != UNKNOWN
+                // 2. Current status != UNKNOWN && expectedStatus = UNKNOWN
+                // 3. endTime is reached
+                while (DateTime.Now < endTime) {
+                    nextLoopTime = DateTime.Now.Add(new TimeSpan(0, 0, 1));
                     response = _connection.sendCommand(cmd);
                     if (response == Command.Response.SUCCESS) {
                         _powerStatus = cmd.Status;
@@ -93,6 +93,7 @@ namespace RoomControl {
                         System.Threading.Thread.Sleep((nextLoopTime - DateTime.Now).Milliseconds);
                     }
                 }
+                _powerStatus = PowerCommand.PowerStatus.UNKNOWN;
             });
             thread.IsBackground = true;
             thread.Start();

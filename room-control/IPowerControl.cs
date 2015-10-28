@@ -23,8 +23,7 @@ namespace RoomControl {
         PowerCommand.PowerStatus PowerStatus { get; }
         void PowerOn();
         void PowerOff();
-        void UpdatePowerStatus();
-        void UpdatePowerStatus(PowerCommand.PowerStatus expectedStatus);
+        void UpdatePowerStatus(PowerCommand.PowerStatus expectedStatus = PowerCommand.PowerStatus.UNKNOWN);
         event EventHandler<PowerStatusChangedEventArgs> PowerStatusChanged;
     }
 }
