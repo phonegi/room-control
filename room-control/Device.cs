@@ -4,11 +4,11 @@ using System.Net.NetworkInformation;
 
 namespace RoomControl {
 
-    //public enum DeviceType {
-    //    MONITOR,
-    //    PC,
-    //    PROJECTOR
-    //}
+    public enum DeviceType {
+        MONITOR,
+        PC,
+        PROJECTOR
+    }
 
     public abstract class Device : IEquatable<Device> {
         private string _name;

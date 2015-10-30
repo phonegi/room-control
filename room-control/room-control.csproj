@@ -48,14 +48,10 @@
   <ItemGroup>
     <Compile Include="Device.cs" />
     <Compile Include="Monitor.cs" />
-    <Compile Include="OriginalDevice.cs" />
     <Compile Include="DeviceList.cs" />
-    <Compile Include="OriginalMonitor.cs" />
-    <Compile Include="OriginalPC.cs" />
     <Compile Include="PC.cs" />
     <Compile Include="PJLinkDevice.cs" />
     <Compile Include="PoweredDevice.cs" />
-    <Compile Include="OriginalProjector.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>

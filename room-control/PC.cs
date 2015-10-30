@@ -1,5 +1,7 @@
 ﻿
 using rv;
+using System;
+using System.Diagnostics;
 using System.Net.NetworkInformation;
 
 namespace RoomControl {
@@ -7,7 +9,7 @@ namespace RoomControl {
 
         public PC() {
             _type = DeviceType.PC;
-            _maximumLoopTimeSpan = 90;
+            _maximumLoopTimeSpan = 60;
             _minimumLoopTimeSpan = 3;
         }
 

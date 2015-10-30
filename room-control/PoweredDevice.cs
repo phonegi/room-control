@@ -7,9 +7,9 @@ using rv;
 
 namespace RoomControl {
     public abstract class PoweredDevice : Device, IPowerControl {
-        protected int _maximumLoopTimeSpan;     //in seconds
-        protected int _minimumLoopTimeSpan;        //in seconds
-        private PowerCommand.PowerStatus __powerStatus = PowerCommand.PowerStatus.UNKNOWN;
+        protected volatile int _maximumLoopTimeSpan;     //in seconds
+        protected volatile int _minimumLoopTimeSpan;     //in seconds
+        private volatile PowerCommand.PowerStatus __powerStatus = PowerCommand.PowerStatus.UNKNOWN;
 
         protected PowerCommand.PowerStatus _powerStatus {
             get { return __powerStatus; }
@@ -29,7 +29,9 @@ namespace RoomControl {
             }
         }
 
-        // returns true if power status was subb
+        public int MaximumLoopTimeSpan { get { return _maximumLoopTimeSpan; } }
+
+        // returns true if power status was verified
         protected abstract bool GetPowerStatus(PowerCommand.PowerStatus expectedStatus);
 
         #region IPowerControl Implementation

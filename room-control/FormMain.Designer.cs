@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -39,6 +36,9 @@
             this.dgvrPcName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvrPcPower = new System.Windows.Forms.DataGridViewImageColumn();
             this.dgvMonitor = new System.Windows.Forms.DataGridView();
+            this.dgvrMonitorName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvrMonitorPower = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dgvrMonitorInput = new System.Windows.Forms.DataGridViewImageColumn();
             this.dgvProjector = new System.Windows.Forms.DataGridView();
             this.dgvrProjectorName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvrProjectorPower = new System.Windows.Forms.DataGridViewImageColumn();
@@ -50,19 +50,21 @@
             this.cmdMonitorOn = new System.Windows.Forms.Button();
             this.cmdPcOff = new System.Windows.Forms.Button();
             this.cmdPcOn = new System.Windows.Forms.Button();
-            this.dgvrMonitorName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvrMonitorPower = new System.Windows.Forms.DataGridViewImageColumn();
-            this.dgvrMonitorInput = new System.Windows.Forms.DataGridViewImageColumn();
+            this.cmdAllOff = new System.Windows.Forms.Button();
+            this.cmdAllOn = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPC)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMonitor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProjector)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(15, 23);
+            this.label1.Location = new System.Drawing.Point(35, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 20);
             this.label1.TabIndex = 0;
@@ -72,7 +74,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(323, 23);
+            this.label2.Location = new System.Drawing.Point(343, 23);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(74, 20);
             this.label2.TabIndex = 2;
@@ -82,7 +84,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(841, 23);
+            this.label3.Location = new System.Drawing.Point(813, 23);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(86, 20);
             this.label3.TabIndex = 4;
@@ -98,16 +100,8 @@
             this.dgvPC.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dgvrPcName,
             this.dgvrPcPower});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvPC.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvPC.Location = new System.Drawing.Point(17, 47);
-            this.dgvPC.Margin = new System.Windows.Forms.Padding(4);
+            this.dgvPC.Location = new System.Drawing.Point(37, 47);
+            this.dgvPC.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dgvPC.Name = "dgvPC";
             this.dgvPC.ReadOnly = true;
             this.dgvPC.RowHeadersVisible = false;
@@ -142,21 +136,38 @@
             this.dgvrMonitorName,
             this.dgvrMonitorPower,
             this.dgvrMonitorInput});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvMonitor.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvMonitor.Location = new System.Drawing.Point(327, 47);
-            this.dgvMonitor.Margin = new System.Windows.Forms.Padding(4);
+            this.dgvMonitor.Location = new System.Drawing.Point(347, 47);
+            this.dgvMonitor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dgvMonitor.Name = "dgvMonitor";
             this.dgvMonitor.ReadOnly = true;
             this.dgvMonitor.RowHeadersVisible = false;
             this.dgvMonitor.Size = new System.Drawing.Size(419, 407);
             this.dgvMonitor.TabIndex = 7;
+            // 
+            // dgvrMonitorName
+            // 
+            this.dgvrMonitorName.HeaderText = "Name";
+            this.dgvrMonitorName.Name = "dgvrMonitorName";
+            this.dgvrMonitorName.ReadOnly = true;
+            this.dgvrMonitorName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dgvrMonitorName.Width = 215;
+            // 
+            // dgvrMonitorPower
+            // 
+            this.dgvrMonitorPower.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dgvrMonitorPower.HeaderText = "Power";
+            this.dgvrMonitorPower.Name = "dgvrMonitorPower";
+            this.dgvrMonitorPower.ReadOnly = true;
+            // 
+            // dgvrMonitorInput
+            // 
+            this.dgvrMonitorInput.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.NullValue = null;
+            this.dgvrMonitorInput.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvrMonitorInput.HeaderText = "Input";
+            this.dgvrMonitorInput.Name = "dgvrMonitorInput";
+            this.dgvrMonitorInput.ReadOnly = true;
             // 
             // dgvProjector
             // 
@@ -168,16 +179,8 @@
             this.dgvProjector.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dgvrProjectorName,
             this.dgvrProjectorPower});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvProjector.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvProjector.Location = new System.Drawing.Point(845, 47);
-            this.dgvProjector.Margin = new System.Windows.Forms.Padding(4);
+            this.dgvProjector.Location = new System.Drawing.Point(817, 47);
+            this.dgvProjector.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dgvProjector.Name = "dgvProjector";
             this.dgvProjector.ReadOnly = true;
             this.dgvProjector.RowHeadersVisible = false;
@@ -206,8 +209,8 @@
             this.cmdMonitorInputPc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdMonitorInputPc.Image = global::RoomControl.Properties.Resources.laptop;
             this.cmdMonitorInputPc.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdMonitorInputPc.Location = new System.Drawing.Point(520, 506);
-            this.cmdMonitorInputPc.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdMonitorInputPc.Location = new System.Drawing.Point(540, 506);
+            this.cmdMonitorInputPc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdMonitorInputPc.Name = "cmdMonitorInputPc";
             this.cmdMonitorInputPc.Size = new System.Drawing.Size(225, 37);
             this.cmdMonitorInputPc.TabIndex = 16;
@@ -223,8 +226,8 @@
             this.cmdMonitorInputBroadcast.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdMonitorInputBroadcast.Image = global::RoomControl.Properties.Resources.broadcast;
             this.cmdMonitorInputBroadcast.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdMonitorInputBroadcast.Location = new System.Drawing.Point(520, 462);
-            this.cmdMonitorInputBroadcast.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdMonitorInputBroadcast.Location = new System.Drawing.Point(540, 462);
+            this.cmdMonitorInputBroadcast.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdMonitorInputBroadcast.Name = "cmdMonitorInputBroadcast";
             this.cmdMonitorInputBroadcast.Size = new System.Drawing.Size(225, 37);
             this.cmdMonitorInputBroadcast.TabIndex = 15;
@@ -240,8 +243,8 @@
             this.cmdProjectorOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdProjectorOff.Image = global::RoomControl.Properties.Resources.power_button_off;
             this.cmdProjectorOff.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdProjectorOff.Location = new System.Drawing.Point(845, 506);
-            this.cmdProjectorOff.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdProjectorOff.Location = new System.Drawing.Point(817, 506);
+            this.cmdProjectorOff.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdProjectorOff.Name = "cmdProjectorOff";
             this.cmdProjectorOff.Size = new System.Drawing.Size(156, 37);
             this.cmdProjectorOff.TabIndex = 14;
@@ -252,13 +255,14 @@
             // 
             // cmdProjectorOn
             // 
+            this.cmdProjectorOn.Enabled = false;
             this.cmdProjectorOn.FlatAppearance.BorderSize = 0;
             this.cmdProjectorOn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdProjectorOn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdProjectorOn.Image = global::RoomControl.Properties.Resources.power_button_on;
             this.cmdProjectorOn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdProjectorOn.Location = new System.Drawing.Point(845, 462);
-            this.cmdProjectorOn.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdProjectorOn.Location = new System.Drawing.Point(817, 462);
+            this.cmdProjectorOn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdProjectorOn.Name = "cmdProjectorOn";
             this.cmdProjectorOn.Size = new System.Drawing.Size(147, 37);
             this.cmdProjectorOn.TabIndex = 13;
@@ -274,8 +278,8 @@
             this.cmdMonitorOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdMonitorOff.Image = global::RoomControl.Properties.Resources.power_button_off;
             this.cmdMonitorOff.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdMonitorOff.Location = new System.Drawing.Point(327, 506);
-            this.cmdMonitorOff.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdMonitorOff.Location = new System.Drawing.Point(347, 506);
+            this.cmdMonitorOff.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdMonitorOff.Name = "cmdMonitorOff";
             this.cmdMonitorOff.Size = new System.Drawing.Size(156, 37);
             this.cmdMonitorOff.TabIndex = 12;
@@ -291,8 +295,8 @@
             this.cmdMonitorOn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdMonitorOn.Image = global::RoomControl.Properties.Resources.power_button_on;
             this.cmdMonitorOn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdMonitorOn.Location = new System.Drawing.Point(327, 462);
-            this.cmdMonitorOn.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdMonitorOn.Location = new System.Drawing.Point(347, 462);
+            this.cmdMonitorOn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdMonitorOn.Name = "cmdMonitorOn";
             this.cmdMonitorOn.Size = new System.Drawing.Size(147, 37);
             this.cmdMonitorOn.TabIndex = 11;
@@ -308,8 +312,8 @@
             this.cmdPcOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdPcOff.Image = global::RoomControl.Properties.Resources.power_button_off;
             this.cmdPcOff.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdPcOff.Location = new System.Drawing.Point(17, 506);
-            this.cmdPcOff.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdPcOff.Location = new System.Drawing.Point(37, 506);
+            this.cmdPcOff.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdPcOff.Name = "cmdPcOff";
             this.cmdPcOff.Size = new System.Drawing.Size(156, 37);
             this.cmdPcOff.TabIndex = 10;
@@ -325,8 +329,8 @@
             this.cmdPcOn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdPcOn.Image = global::RoomControl.Properties.Resources.power_button_on;
             this.cmdPcOn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdPcOn.Location = new System.Drawing.Point(17, 462);
-            this.cmdPcOn.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdPcOn.Location = new System.Drawing.Point(37, 462);
+            this.cmdPcOn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmdPcOn.Name = "cmdPcOn";
             this.cmdPcOn.Size = new System.Drawing.Size(147, 37);
             this.cmdPcOn.TabIndex = 9;
@@ -335,37 +339,70 @@
             this.cmdPcOn.UseVisualStyleBackColor = true;
             this.cmdPcOn.Click += new System.EventHandler(this.cmdPcOn_Click);
             // 
-            // dgvrMonitorName
+            // cmdAllOff
             // 
-            this.dgvrMonitorName.HeaderText = "Name";
-            this.dgvrMonitorName.Name = "dgvrMonitorName";
-            this.dgvrMonitorName.ReadOnly = true;
-            this.dgvrMonitorName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dgvrMonitorName.Width = 215;
+            this.cmdAllOff.FlatAppearance.BorderSize = 0;
+            this.cmdAllOff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdAllOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdAllOff.Image = global::RoomControl.Properties.Resources.power_button_off;
+            this.cmdAllOff.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdAllOff.Location = new System.Drawing.Point(8, 68);
+            this.cmdAllOff.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmdAllOff.Name = "cmdAllOff";
+            this.cmdAllOff.Size = new System.Drawing.Size(201, 37);
+            this.cmdAllOff.TabIndex = 18;
+            this.cmdAllOff.Text = "Everything OFF";
+            this.cmdAllOff.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cmdAllOff.UseVisualStyleBackColor = true;
+            this.cmdAllOff.Click += new System.EventHandler(this.cmdAllOff_Click);
             // 
-            // dgvrMonitorPower
+            // cmdAllOn
             // 
-            this.dgvrMonitorPower.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dgvrMonitorPower.HeaderText = "Power";
-            this.dgvrMonitorPower.Name = "dgvrMonitorPower";
-            this.dgvrMonitorPower.ReadOnly = true;
+            this.cmdAllOn.FlatAppearance.BorderSize = 0;
+            this.cmdAllOn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdAllOn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdAllOn.Image = global::RoomControl.Properties.Resources.power_button_on;
+            this.cmdAllOn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdAllOn.Location = new System.Drawing.Point(8, 23);
+            this.cmdAllOn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmdAllOn.Name = "cmdAllOn";
+            this.cmdAllOn.Size = new System.Drawing.Size(192, 37);
+            this.cmdAllOn.TabIndex = 17;
+            this.cmdAllOn.Text = "Everything ON";
+            this.cmdAllOn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cmdAllOn.UseVisualStyleBackColor = true;
+            this.cmdAllOn.Click += new System.EventHandler(this.cmdAllOn_Click);
             // 
-            // dgvrMonitorInput
+            // label4
             // 
-            this.dgvrMonitorInput.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.NullValue = null;
-            this.dgvrMonitorInput.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvrMonitorInput.HeaderText = "Input";
-            this.dgvrMonitorInput.Name = "dgvrMonitorInput";
-            this.dgvrMonitorInput.ReadOnly = true;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(1163, 23);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(161, 20);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "Entire Room Control";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.cmdAllOn);
+            this.groupBox1.Controls.Add(this.cmdAllOff);
+            this.groupBox1.Location = new System.Drawing.Point(1167, 47);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(267, 123);
+            this.groupBox1.TabIndex = 20;
+            this.groupBox1.TabStop = false;
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AliceBlue;
-            this.ClientSize = new System.Drawing.Size(1173, 559);
+            this.ClientSize = new System.Drawing.Size(1465, 559);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.cmdMonitorInputPc);
             this.Controls.Add(this.cmdMonitorInputBroadcast);
             this.Controls.Add(this.cmdProjectorOff);
@@ -387,6 +424,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvPC)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMonitor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProjector)).EndInit();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -415,6 +453,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvrMonitorName;
         private System.Windows.Forms.DataGridViewImageColumn dgvrMonitorPower;
         private System.Windows.Forms.DataGridViewImageColumn dgvrMonitorInput;
+        private System.Windows.Forms.Button cmdAllOff;
+        private System.Windows.Forms.Button cmdAllOn;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 

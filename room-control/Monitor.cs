@@ -32,11 +32,11 @@ namespace RoomControl {
         }
 
         private void SetInputStatus(InputCommand.InputType inputType, int port) {
-            if (inputType != _inputType || port != _port) {
+            //if (inputType != _inputType || port != _port) {
                 OnInputStatusChanged(new InputStatusChangedEventArgs(inputType, port));
                 _inputType = inputType;
                 _port = port;
-            }
+            //}
         }
 
         private void OnInputStatusChanged(InputStatusChangedEventArgs e) {
@@ -59,6 +59,10 @@ namespace RoomControl {
                 InputCommand inputCommand = new InputCommand(inputType, port);
                 Command.Response response = _connection.sendCommand(inputCommand);
                 if (response == Command.Response.SUCCESS) {
+                    //If query command is received immediately after change of input,
+                    //input reverts to original input setting. Must be a bug in the monitor
+                    //software. The 2 second delay alleviates the problem.
+                    System.Threading.Thread.Sleep(2000);
                     UpdateInputStatus(inputType, port);
                 }
             });
