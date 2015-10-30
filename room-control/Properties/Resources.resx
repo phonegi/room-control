@@ -118,28 +118,28 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="antenna_22x22" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\antenna-22x22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="broadcast_22x22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="broadcast" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\broadcast-22x22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cool_22x22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="cool_down" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\cool-22x22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="dot_green_22x22" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\dot-green-22x22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="dot_green" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\dot-green-20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="dot_red_22x22" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\dot-red-22x22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="dot_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\dot-red-20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="laptop_22x22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="hourglass" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\hourglass-20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="laptop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\laptop-22x22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="power_button_off_22x22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="power_button_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\power-button-off-22x22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="power_button_on_22x22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="power_button_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\power-button-on-22x22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="power_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -148,8 +148,11 @@
   <data name="power_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\power-on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="question_mark_22x22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="question_mark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\question-mark-22x22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="red_x" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\red-x-20x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="warm_22x22" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\warm-22x22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

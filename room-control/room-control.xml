@@ -149,13 +149,13 @@
   <projectors>
     <projector>
       <name>projector-north</name>
-      <ip>10.7.19.113</ip>
-      <mac>B0-83-FE-AA-B2-4C</mac>
+      <ip>10.7.19.140</ip>
+      <mac>AC-18-26-29-DB-3C</mac>
     </projector>
     <projector>
       <name>projector-west</name>
-      <ip>10.7.19.113</ip>
-      <mac>B0-83-FE-AA-B2-4C</mac>
+      <ip>10.7.19.141</ip>
+      <mac>64-EB-8C-1B-55-E2</mac>
     </projector>
   </projectors>
 </devices>

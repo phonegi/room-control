@@ -1,31 +1,77 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using rv;
+using System;
+using System.Diagnostics;
+using System.Net.NetworkInformation;
 
 namespace RoomControl {
-    public class PC : Device, IPowerControl {
+    public class PC : PoweredDevice {
 
-        public const DeviceType Type = DeviceType.PC;
-
-        private PowerCommand.PowerStatus _powerStatus = PowerCommand.PowerStatus.UNKNOWN;
-
-        public PC() { }
-
-        public PowerCommand.PowerStatus GetPowerStatus() {
-            return _powerStatus;
+        public PC() {
+            _type = DeviceType.PC;
+            _maximumLoopTimeSpan = 60;
+            _minimumLoopTimeSpan = 3;
         }
 
-        public void PowerOff() {
-            _powerStatus = Wmi.Util.ShutdownHost(IP) == Wmi.Util.ShutdownResult.SUCCESS ? PowerCommand.PowerStatus.OFF : PowerCommand.PowerStatus.UNKNOWN;
+        private PowerCommand.PowerStatus Ping() {
+            Ping ping = new Ping();
+            PingReply reply;
+            PowerCommand.PowerStatus powerStatus;
+
+            try {
+                reply = ping.Send(IP, 3000);
+                switch (reply.Status) {
+                    case IPStatus.Success:
+                    case IPStatus.DestinationPortUnreachable:
+                    case IPStatus.DestinationProtocolUnreachable:
+                        powerStatus = PowerCommand.PowerStatus.ON;
+                        break;
+                    case IPStatus.BadDestination:
+                    case IPStatus.DestinationHostUnreachable:
+                    case IPStatus.TimedOut:
+                    case IPStatus.TimeExceeded:
+                    case IPStatus.TtlExpired:
+                        powerStatus = PowerCommand.PowerStatus.OFF;
+                        break;
+                    default:
+                        powerStatus = PowerCommand.PowerStatus.UNKNOWN;
+                        break;
+                }
+            }
+            catch {
+                powerStatus = PowerCommand.PowerStatus.UNKNOWN;
+            }
+            return powerStatus;
         }
 
-        public void PowerOn() {
-            _powerStatus = Network.WakeOnLan.WakeUp(MAC) ? PowerCommand.PowerStatus.ON : PowerCommand.PowerStatus.UNKNOWN;
+        #region PoweredDevice Implementation
+        public override void PowerOff() {
+            System.Threading.Thread thread = new System.Threading.Thread((System.Threading.ThreadStart)delegate {
+                Wmi.Util.ShutdownHost(IP);
+                UpdatePowerStatus(PowerCommand.PowerStatus.OFF);
+            });
+            thread.IsBackground = true;
+            thread.Start();
         }
+
+        public override void PowerOn() {
+            System.Threading.Thread thread = new System.Threading.Thread((System.Threading.ThreadStart)delegate {
+                Network.WakeOnLan.WakeUp(MAC);
+                UpdatePowerStatus(PowerCommand.PowerStatus.ON);
+            });
+            thread.IsBackground = true;
+            thread.Start();
+        }
+
+        protected override bool GetPowerStatus(PowerCommand.PowerStatus expectedStatus) {
+            _powerStatus = Ping();
+            if (expectedStatus != PowerCommand.PowerStatus.UNKNOWN) {
+                if (_powerStatus == expectedStatus) { return true; }
+            }
+            else if (_powerStatus != PowerCommand.PowerStatus.UNKNOWN) { return true; }
+            return false;
+        }
+        #endregion
+
     }
 }

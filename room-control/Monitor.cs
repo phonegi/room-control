@@ -1,63 +1,108 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using rv;
 
 namespace RoomControl {
-    public class Monitor : Device, IPowerControl, IInputControl {
-
+    public class Monitor : PJLinkDevice, IInputControl {
         public static int INPUT_BROADCAST = 1;
         public static int INPUT_PC = 2;
 
-        public const DeviceType Type = DeviceType.MONITOR;
+        private InputCommand.InputType _inputType;
+        private int _port = -1;
 
-        private PJLinkConnection _connection;
-        private PowerCommand.PowerStatus _powerStatus = PowerCommand.PowerStatus.UNKNOWN;
-
-        public Monitor() { }
-
-        public void InitPJLinkConnection() {
-            _connection = new PJLinkConnection(IP.ToString(), PASSWORD);
+        public Monitor() {
+            _type = DeviceType.MONITOR;
         }
 
-        public PowerCommand.PowerStatus GetPowerStatus() {
-            //_powerStatus = _connection.powerQuery();
-            return _powerStatus;
-        }
-
-        public void PowerOff() {
-            if (_connection.turnOff()) {
-                _powerStatus = PowerCommand.PowerStatus.OFF;
-            }
-            else {
-                _powerStatus = PowerCommand.PowerStatus.UNKNOWN;
+        private void SetInputStatus(InputCommand.InputType inputType) {
+            if (inputType != _inputType) {
+                OnInputStatusChanged(new InputStatusChangedEventArgs(inputType, _port));
+                _inputType = inputType;
             }
         }
 
-        public void PowerOn() {
-            if (_connection.turnOn()) {
-                _powerStatus = PowerCommand.PowerStatus.ON;
+        private void SetInputStatus(int port) {
+            if (port != _port) {
+                OnInputStatusChanged(new InputStatusChangedEventArgs(_inputType, port));
+                _port = port;
             }
-            else {
-                _powerStatus = PowerCommand.PowerStatus.UNKNOWN;
+        }
+
+        private void SetInputStatus(InputCommand.InputType inputType, int port) {
+            //if (inputType != _inputType || port != _port) {
+                OnInputStatusChanged(new InputStatusChangedEventArgs(inputType, port));
+                _inputType = inputType;
+                _port = port;
+            //}
+        }
+
+        private void OnInputStatusChanged(InputStatusChangedEventArgs e) {
+            EventHandler<InputStatusChangedEventArgs> eventHandler = InputStatusChanged;
+            if (eventHandler != null) {
+                eventHandler(this, e);
             }
+        }
+
+        #region IInputControl Implementation
+        public event EventHandler<InputStatusChangedEventArgs> InputStatusChanged;
+
+        public void GetInputStatus(out InputCommand.InputType type, out int port) {
+            type = _inputType;
+            port = _port;
         }
 
         public void SetInput(InputCommand.InputType inputType, int port) {
-            InputCommand inputCommand = new InputCommand(inputType, port);
-            _connection.sendCommand(inputCommand);
+            System.Threading.Thread thread = new System.Threading.Thread((System.Threading.ThreadStart)delegate {
+                InputCommand inputCommand = new InputCommand(inputType, port);
+                Command.Response response = _connection.sendCommand(inputCommand);
+                if (response == Command.Response.SUCCESS) {
+                    //If query command is received immediately after change of input,
+                    //input reverts to original input setting. Must be a bug in the monitor
+                    //software. The 2 second delay alleviates the problem.
+                    System.Threading.Thread.Sleep(2000);
+                    UpdateInputStatus(inputType, port);
+                }
+            });
+            thread.IsBackground = true;
+            thread.Start();
         }
 
-        public void GetInputStatus(out InputCommand.InputType type, out int port) {
-            InputCommand inputCommand = new InputCommand();
-            //_connection.sendCommand(inputCommand);
-            type = inputCommand.Input;
-            port = inputCommand.Port;
-        }
+        public void UpdateInputStatus(InputCommand.InputType expectedType = InputCommand.InputType.UNKNOWN, int expectedPort = -1) {
+            System.Threading.Thread thread = new System.Threading.Thread((System.Threading.ThreadStart)delegate {
+                DateTime startTime = DateTime.Now;
+                DateTime endTime = startTime.Add(new TimeSpan(0, 0, _maximumLoopTimeSpan));
+                DateTime nextLoopTime;
+                InputCommand cmd = new InputCommand();
+                Command.Response response;
 
+                // Loop a maximum of every nextLoopTime seconds until:
+                // 1. Current status = expectedStatus != UNKNOWN
+                // 2. Current status != UNKNOWN && expectedStatus = UNKNOWN
+                // 3. endTime is reached
+                while (DateTime.Now < endTime) {
+                    nextLoopTime = DateTime.Now.Add(new TimeSpan(0, 0, _minimumLoopTimeSpan));
+                    response = _connection.sendCommand(cmd);
+                    if (response == Command.Response.SUCCESS) {
+                        SetInputStatus(cmd.Input, cmd.Port);
+                    }
+                    else {
+                        SetInputStatus(InputCommand.InputType.UNKNOWN);
+                    }
+                    if (expectedType != InputCommand.InputType.UNKNOWN) {
+                        if (_inputType == expectedType && _port == expectedPort) { return; }
+                    }
+                    else if (_inputType != InputCommand.InputType.UNKNOWN) { return; }
+                    if (nextLoopTime > DateTime.Now) {
+                        System.Threading.Thread.Sleep((nextLoopTime - DateTime.Now).Milliseconds);
+                    }
+                }
+            });
+            thread.IsBackground = true;
+            thread.Start();
+        }
+        #endregion
     }
 }
